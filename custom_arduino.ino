@@ -43,15 +43,6 @@ void revolutions_per_minute() {
   val++;
 }
 
-int receive_setpoint() {
-  return set;
-}
-
-int receive_new_speed() {
-  return new_sp;
-}
-
-
 void setup() {
   Serial.begin(9600);
   attachInterrupt(0, revolutions_per_minute, CHANGE);
@@ -60,11 +51,11 @@ void setup() {
 
 void loop() {
   if (Serial.available() > 0) {
-    incomingString = Serial.readString();   
-    String receiveStr = incomingString.substring(0, 9);   
-    String receiveInt = incomingString.substring(9);  
-    int incomingInteger = receiveInt.toInt();  
-       
+    incomingString = Serial.readString();
+    String receiveStr = incomingString.substring(0, 9);
+    String receiveInt = incomingString.substring(9);
+    int incomingInteger = receiveInt.toInt();
+
     if (incomingString != -1 && receiveStr == "set_point") {
       int set = incomingInteger;
       Serial.print("set: ");
@@ -76,8 +67,6 @@ void loop() {
       Serial.println(new_sp);
     }
   }
-
-
 
   val = 0;
   delay(500);
